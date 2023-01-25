@@ -1,4 +1,4 @@
-This subject is Fundamentals of Programming.
+This subject is Fundamentals of Programming, done during my first year of the degree in UCM.
 
 In its final project, we had to create a sudoku application where players could fill them up and create their own sudokus.
 
