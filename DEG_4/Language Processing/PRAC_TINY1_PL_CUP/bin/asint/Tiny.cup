@@ -1,0 +1,74 @@
+package asint;
+
+import java_cup.runtime.*;
+import alex.AnalizadorLexicoTiny;
+import alex.UnidadLexica;
+import errors.GestionErroresTiny;
+
+scan with {: return getScanner().next_token(); :};
+parser code {: 
+   private GestionErroresTiny errores;
+   public void syntax_error(Symbol unidadLexica) {
+     errores.errorSintactico((UnidadLexica)unidadLexica);
+   }
+:};
+init with {: 
+   errores = new GestionErroresTiny();
+   AnalizadorLexicoTiny alex = (AnalizadorLexicoTiny)getScanner();
+   alex.fijaGestionErrores(errores);
+:};
+
+terminal			ID, LIT_ENT, LIT_REAL, LIT_STRING, MAS, MENOS, AMP_DOBLE, MUL, DIV, PORCENTAJE,
+					LT, GT, LTE, GTE, SAME, DIFF, PAP, PCIE, PC, ASIG, CCAP, CCCIE, LLAP, LLCIE, PUNTO,
+					FLECHA, COMA, AMP, INT, REAL, BOOL, STRING, AND, OR, NOT, NULL, TRUE, FALSE, PROC, 
+					IF, THEN, ELSE, ENDIF, WHILE, DO, ENDWHILE, CALL, RECORD, ARRAY, OF, POINTER, NEW, 
+					DELETE, READ, WRITE, NL, VAR, TYPE;
+
+non terminal 		Tiny1, Declaraciones, Declaracion, ParametrosFormales, Parametros, Parametro, Tipo,
+					TipoBasico, TamArray, Campos, Campo, Instrucciones, Instruccion, Asignacion, 
+					IfStatement, Else, While, ListaI, Lectura, Escritura, NuevaLinea, ReservaMemoria,
+					LiberacionMemoria, InvocacionProc, ParametrosReales, ListaE, Compuesta, Bloque, E0,
+					E1, E2, E3, E4, E5, E6, E7, OPBOOL, OPREL, OP3, OPINDEX, OPACC, OPINDIR;
+
+Tiny1 ::= Declaraciones AMP_DOBLE Instrucciones | Instrucciones | ;
+Declaraciones ::= Declaracion | Declaraciones PC Declaracion;
+Declaracion ::= VAR Tipo ID | TYPE Tipo ID | PROC ID ParametrosFormales Bloque;
+ParametrosFormales ::= PAP Parametros PCIE | PAP PCIE;
+Parametros ::= Parametro | Parametros COMA Parametro;
+Parametro ::= Tipo AMP ID | Tipo ID;
+Tipo ::= TipoBasico | ID | ARRAY TamArray OF Tipo | RECORD LLAP Campos LLCIE | POINTER Tipo;
+TipoBasico ::= INT | REAL | BOOL | STRING;
+TamArray ::= CCAP LIT_ENT CCCIE;
+Campos ::= Campo | Campos PC Campo;
+Campo ::= Tipo ID;
+Instrucciones ::= Instruccion | Instrucciones PC Instruccion;
+Instruccion ::= Asignacion | IfStatement | While | Lectura | Escritura | NuevaLinea | ReservaMemoria | LiberacionMemoria | InvocacionProc | Compuesta;
+Asignacion ::= E0 ASIG E0;
+IfStatement ::= IF E0 THEN ListaI Else ENDIF;
+Else ::= ELSE ListaI | ;
+While ::= WHILE E0 DO ListaI ENDWHILE;
+ListaI ::= Instrucciones | ;
+Lectura ::= READ E0;
+Escritura ::= WRITE E0;
+NuevaLinea ::= NL;
+ReservaMemoria ::= NEW E0;
+LiberacionMemoria ::= DELETE E0;
+InvocacionProc ::= CALL ID ParametrosReales;
+ParametrosReales ::= PAP ListaE PCIE | PAP PCIE;
+ListaE ::= E0 | ListaE COMA E0;
+Compuesta ::= Bloque;
+Bloque ::= LLAP Tiny1 LLCIE;
+E0 ::= E1 MAS E0 | E1 MENOS E1 |E1;
+E1 ::= E1 OPBOOL E2 | E2;
+E2 ::= E2 OPREL E3 | E3;
+E3 ::= E4 OP3 E4 | E4;
+E4 ::= MENOS E5 | NOT E4 | E5;
+E5 ::= E5 OPINDEX | E5 OPACC |  E6;
+E6 ::= OPINDIR E6 | E7;
+E7 ::= ID | LIT_ENT | LIT_REAL | LIT_STRING | NULL | TRUE | FALSE | PAP E0 PCIE;
+OPBOOL ::= AND | OR;
+OPREL ::= LT | GT | LTE | GTE | SAME | DIFF;
+OP3 ::= MUL | DIV | PORCENTAJE;
+OPINDEX ::= CCAP E0 CCCIE;
+OPACC ::= PUNTO ID | FLECHA ID;
+OPINDIR ::= MUL;

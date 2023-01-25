@@ -1,0 +1,7 @@
+real peso;
+real altura;
+real imc
+&&
+imc = peso / (altura * altura);
+peso_correcto = (imc >= 18.5) and (imc <= +24.9);
+sobrepeso = (imc > 25) and (imc < 30)

@@ -1,0 +1,7 @@
+real precio;
+real precioIVA;
+bool caro
+&&
+precio = 324.0E+12 * 67.9 + 0.0101001 - 3;
+precioIVA = ((0.21) * precio);
+caro = (precio > 20) and (precioIVA > 30)

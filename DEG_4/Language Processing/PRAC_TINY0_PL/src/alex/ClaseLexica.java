@@ -1,0 +1,6 @@
+package alex;
+
+public enum ClaseLexica {
+	AMP, PC, INT, REAL, BOOL, VAR, LIT_INT, LIT_REAL, ASIG, MAS, MENOS, MUL, DIV,
+	AND, OR, NOT, OPREL, LT, GT, LTE, GTE, SAME, DIFF, PAP, PCIE, TRUE, FALSE, EOF
+}

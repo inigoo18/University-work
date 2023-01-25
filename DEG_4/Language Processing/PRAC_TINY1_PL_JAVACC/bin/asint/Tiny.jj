@@ -1,0 +1,137 @@
+options  {
+  STATIC=false;
+}  
+PARSER_BEGIN(AnalizadorSintacticoTiny)
+package asint;
+
+public class AnalizadorSintacticoTiny {}
+PARSER_END(AnalizadorSintacticoTiny)
+
+  TOKEN:{<mas: "+">}
+  TOKEN:{<menos: "-">}
+  TOKEN:{<amp_doble: "&&">}
+  TOKEN:{<mul: "*">}
+  TOKEN:{<div: "/">}
+  TOKEN:{<porcentaje: "%">}
+  TOKEN:{<lt: "<">}
+  TOKEN:{<gt: ">">}
+  TOKEN:{<lte: "<=">}
+  TOKEN:{<gte: ">=">}
+  TOKEN:{<same: "==">}
+  TOKEN:{<diff: "!=">}
+  TOKEN:{<pap: "(">}
+  TOKEN:{<pcie: ")">}
+  TOKEN:{<pc: ";">}
+  TOKEN:{<asig: "=">}
+  TOKEN:{<ccap: "[">}
+  TOKEN:{<ccie: "]">}
+  TOKEN:{<llap: "{">}
+  TOKEN:{<llcie: "}">}
+  TOKEN:{<punto: ".">}
+  TOKEN:{<flecha: "->">}
+  TOKEN:{<coma: ",">}
+  TOKEN:{<amp: "&">}
+  TOKEN:{<int_t: "int">}
+  TOKEN:{<real_t: "real">}
+  TOKEN:{<bool_t: "bool">}
+  TOKEN:{<string_t: "string">}
+  TOKEN:{<and: "and">}
+  TOKEN:{<or: "or">}
+  TOKEN:{<not: "not">} 
+  TOKEN:{<null_t: "null">}
+  TOKEN:{<true_t: "true">}
+  TOKEN:{<false_t: "false">}
+  TOKEN:{<proc: "proc">}
+  TOKEN:{<if_t: "if">}
+  TOKEN:{<then: "then">}
+  TOKEN:{<else_t: "else">}
+  TOKEN:{<endif: "endif">}
+  TOKEN:{<while_t: "while">}
+  TOKEN:{<do_t: "do">}
+  TOKEN:{<endwhile: "endwhile">}
+  TOKEN:{<call: "call">}
+  TOKEN:{<record: "record">}
+  TOKEN:{<array: "array">}
+  TOKEN:{<of: "of">}
+  TOKEN:{<pointer: "pointer">}
+  TOKEN:{<new_t: "new">}
+  TOKEN:{<delete: "delete">}
+  TOKEN:{<read: "read">}
+  TOKEN:{<write: "write">}
+  TOKEN:{<nl: "nl">}
+  TOKEN:{<var: "var">}
+  TOKEN:{<type: "type">}
+  TOKEN:{<eof: "$">}
+  TOKEN:{<#letra:["a"-"z","A"-"Z"]>}
+  TOKEN:{<#digitoPositivo:["1"-"9"]>}
+  TOKEN:{<#digito:<digitoPositivo>|"0">} 
+  TOKEN:{<#subrayado:"_">}
+  TOKEN:{<#parteEntera:<digitoPositivo> (<digito>)* |"0">} 
+  TOKEN:{<#parteDecimal: (<digito>)* <digitoPositivo>>}
+  TOKEN:{<#EXP:["e","E"]>}
+  TOKEN:{<#exponencial:<EXP> <parteEntera>>}
+  SKIP:{<["\t"," ","\r","\b","\n"]>}  
+  SKIP:{<"#"(~["\n"])*>}  
+  TOKEN:{<ID:<letra>(<letra>|<digito>|<subrayado>)*>}
+  TOKEN:{<numeroEntero: (["+","-"])? <parteEntera> >}
+  TOKEN:{<numeroReal: (["+","-"])? <parteEntera> (("." <parteDecimal> (<exponencial>)?) | <exponencial>)>}
+  TOKEN:{<litString: "\"" (~["\r","\b","\n"])* "\"">}
+  
+  
+  void TinyP() : {} {Tiny1() <EOF>}
+  void Tiny1() : {} {Declaraciones() <amp_doble> Instrucciones() | Instrucciones()}
+  void Declaraciones()   : {} {Declaracion() RDeclaraciones()}
+  void RDeclaraciones()  : {} {<pc> Declaracion() RDeclaraciones() | {} }
+  void Declaracion()     : {} {(<var> Tipo() <ID>) | (<type> Tipo() <ID>) | (<proc> <ID> ParametrosFormales() Bloque())}
+  void ParametrosFormales()  : {} {<pap> Parametros() <pcie>}
+  void Parametros()   : {} {Parametro() RParametros() | {}}
+  void RParametros()  : {} {<coma> Parametro() RParametros() | {} }
+  void Parametro()    : {} {Tipo() RParametro()} 
+  void RParametro()   : {} {(<amp> <ID>) | <ID>}
+  void Tipo()   : {} {TipoBasico() | <ID> | (<array> TamArray() <of> Tipo()) | (<record> <llap> Campos() <llcie>) | (<pointer> Tipo())} 
+  void TipoBasico()   : {} {<int_t> | <real_t> | <bool_t> | <string_t>}
+  void TamArray()     : {} {<ccap> <numeroEntero> <ccie>}
+  void Campos()       : {} {Campo() RCampos()}
+  void RCampos()      : {} {<pc> Campo() RCampos() | {}}
+  void Campo()        : {} {Tipo() <ID>} 
+  void Instrucciones()   : {} {Instruccion() RInstrucciones()}
+  void RInstrucciones()  : {} {<pc> Instruccion() RInstrucciones() | {}}
+  void Instruccion()     : {} {Asignacion() | ifStatement() | While() | Lectura() | Escritura() | NuevaLinea() | ReservaMemoria() | LiberacionMemoria() | InvocacionProc() | Compuesta()}
+  void Asignacion()      : {} {E0() <asig> E0()}
+  void ifStatement()     : {} {<if_t> E0() <then> ListaI() Else() <endif>}
+  void Else()            : {} {(<else_t> ListaI()) | {}}
+  void While()           : {} {<while_t> E0() <do_t> ListaI() <endwhile>}
+  void ListaI()          : {} {Instrucciones() | {}}
+  void Lectura()         : {} {<read> E0()}
+  void Escritura()       : {} {<write> E0()}
+  void NuevaLinea()      : {} {<nl>}
+  void ReservaMemoria()  : {} {<new_t> E0()}
+  void LiberacionMemoria() : {} {<delete> E0()}
+  void InvocacionProc()    : {} {<call> <ID> ParametrosReales()}
+  void ParametrosReales()  : {} {<pap> RParametrosReales()}
+  void RParametrosReales() : {} {(ListaE() <pcie>) | <pcie>}
+  void ListaE()  : {} {E0() RListaE()}
+  void RListaE() : {} {<coma> E0() RListaE() | {}}
+  void Compuesta() : {} {Bloque()}
+  void Bloque()    : {} {<llap> Tiny1() <llcie>}
+  void E0()        : {} {E1() RE0()}
+  void RE0()       : {} {<mas> E0() | <menos> E1() | {}}
+  void E1()		   : {} {E2() RE1()}
+  void RE1()	   : {} {OPBOOL() E2() RE1() | {}}
+  void E2()	 	   : {} {E3() RE2()}
+  void RE2()       : {} {OPREL() E3() RE2() | {}}
+  void E3()        : {} {E4() RE3()}
+  void RE3()       : {} {OP3() E4() | {}}
+  void E4()        : {} {<menos> E5() | <not> E4() | E5()}
+  void E5()        : {} {E6() RE5P()}
+  void RE5P()      : {} {RE5() RE5P() | {}}
+  void RE5()       : {} {OPINDEX() | OPACC()}
+  void E6()        : {} {OPINDIR() E6() | E7()}
+  void E7()        : {} {<ID> | <numeroEntero> | <numeroReal> | <litString> | <true_t> | <false_t> | <null_t>| (<pap> E0() <pcie>)}
+  void OPBOOL()    : {} {<and> | <or>}
+  void OPREL()     : {} {<lt> | <gt> | <lte> | <gte> | <same> | <diff>}
+  void OP3()       : {} {<mul>| <div> | <porcentaje>}
+  void OPINDEX()   : {} {<ccap> E0() <ccie>}
+  void OPACC(): {} {(<punto> <ID>) | (<flecha> <ID>)}
+  void OPINDIR(): {} {<mul>} 
+  
