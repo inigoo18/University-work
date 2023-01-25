@@ -1,0 +1,8 @@
+Mike          1
+John         22
+Blake        50
+Claire        8
+Lola         50
+Lewis         4
+Peter        40
+Jude          4
