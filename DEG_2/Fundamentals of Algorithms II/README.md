@@ -1,1 +1,2 @@
-Here you can find the different subjects I had during my second year of my degree.
+This course is a continuation of Fundamentals of Algorithms. While we still coded in C++, we learned about different data structures such as lists,
+queues, binary trees, stacks, among others.
