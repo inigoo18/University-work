@@ -1,0 +1,13 @@
+Thursday 02/04
+	 
+ Transfer the project to Github.
+-	 Modifying the price of the fruits each time the customer gets to a new round.
+
+Monday 06/04
+-	The modification of the initial number of fruits available in each place when the customer gets to a new round.
+
+Thursday 09/04
+-	The modification of the energy the players lose depending on the place they visit for each round.
+
+Monday 13/04 
+-	Review of the code: See if everything works perfectly and change the things that do not.

@@ -1,0 +1,5 @@
+As the people responsible for the project, we want our customers to feel like each time they play our game it seems like a new experience, 
+so that they keep playing it and don't get bored.
+For that, we've added a certain functionality to our game that makes it more random and unpredictable for the player. Each round will have
+certain values changed (fruit price) as well as a new map layout (how many fruits in a certain place as well as the energy cost),keeping
+the game original.
