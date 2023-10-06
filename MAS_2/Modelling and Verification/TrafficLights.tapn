@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pnml xmlns="http://www.informatik.hu-berlin.de/top/pnml/ptNetb">
+  <net active="true" id="TAPN1" type="P/T net">
+    <place displayName="true" id="NS_TL_Red" initialMarking="1" invariant="&lt; inf" name="NS_TL_Red" nameOffsetX="0" nameOffsetY="0" positionX="330" positionY="240"/>
+    <place displayName="true" id="EW_TL_Red" initialMarking="1" invariant="&lt; inf" name="EW_TL_Red" nameOffsetX="0" nameOffsetY="0" positionX="510" positionY="240"/>
+    <place displayName="true" id="NS_TL_RedYellow" initialMarking="0" invariant="&lt; inf" name="NS_TL_RedYellow" nameOffsetX="0" nameOffsetY="0" positionX="330" positionY="375"/>
+    <place displayName="true" id="NS_TL_Green" initialMarking="0" invariant="&lt; inf" name="NS_TL_Green" nameOffsetX="0" nameOffsetY="0" positionX="105" positionY="375"/>
+    <place displayName="true" id="NS_TL_Yellow" initialMarking="0" invariant="&lt; inf" name="NS_TL_Yellow" nameOffsetX="0" nameOffsetY="0" positionX="105" positionY="240"/>
+    <place displayName="true" id="EW_TL_RedYellow" initialMarking="0" invariant="&lt; inf" name="EW_TL_RedYellow" nameOffsetX="0" nameOffsetY="0" positionX="510" positionY="375"/>
+    <place displayName="true" id="EW_TL_Green" initialMarking="0" invariant="&lt; inf" name="EW_TL_Green" nameOffsetX="0" nameOffsetY="0" positionX="750" positionY="375"/>
+    <place displayName="true" id="EW_TL_Yellow" initialMarking="0" invariant="&lt; inf" name="EW_TL_Yellow" nameOffsetX="0" nameOffsetY="0" positionX="750" positionY="240"/>
+    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="0" nameOffsetY="0" positionX="375" positionY="90"/>
+    <transition angle="0" displayName="true" id="T1" infiniteServer="false" name="T1" nameOffsetX="0" nameOffsetY="0" player="0" positionX="210" positionY="375" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T2" infiniteServer="false" name="T2" nameOffsetX="0" nameOffsetY="0" player="0" positionX="105" positionY="300" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T3" infiniteServer="false" name="T3" nameOffsetX="0" nameOffsetY="0" player="0" positionX="210" positionY="240" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T4" infiniteServer="false" name="T4" nameOffsetX="0" nameOffsetY="0" player="0" positionX="330" positionY="315" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T5" infiniteServer="false" name="T5" nameOffsetX="0" nameOffsetY="0" player="0" positionX="510" positionY="300" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T6" infiniteServer="false" name="T6" nameOffsetX="0" nameOffsetY="0" player="0" positionX="615" positionY="240" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T7" infiniteServer="false" name="T7" nameOffsetX="0" nameOffsetY="0" player="0" positionX="630" positionY="375" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T8" infiniteServer="false" name="T8" nameOffsetX="0" nameOffsetY="0" player="0" positionX="750" positionY="300" priority="0" urgent="false"/>
+    <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="NS_TL_RedYellow" target="T1" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="330" yCoord="390"/>
+      <arcpath arcPointType="false" id="1" xCoord="229" yCoord="390"/>
+    </arc>
+    <arc id="A1" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T1" target="NS_TL_Green" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="219" yCoord="390"/>
+      <arcpath arcPointType="false" id="1" xCoord="135" yCoord="390"/>
+    </arc>
+    <arc id="A2" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="NS_TL_Green" target="T2" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="120" yCoord="375"/>
+      <arcpath arcPointType="false" id="1" xCoord="120" yCoord="330"/>
+    </arc>
+    <arc id="A3" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T2" target="NS_TL_Yellow" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="120" yCoord="300"/>
+      <arcpath arcPointType="false" id="1" xCoord="120" yCoord="270"/>
+    </arc>
+    <arc id="A4" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="NS_TL_Yellow" target="T3" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="135" yCoord="255"/>
+      <arcpath arcPointType="false" id="1" xCoord="219" yCoord="255"/>
+    </arc>
+    <arc id="A5" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T3" target="NS_TL_Red" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="229" yCoord="255"/>
+      <arcpath arcPointType="false" id="1" xCoord="330" yCoord="255"/>
+    </arc>
+    <arc id="A6" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="NS_TL_Red" target="T4" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="345" yCoord="270"/>
+      <arcpath arcPointType="false" id="1" xCoord="345" yCoord="315"/>
+    </arc>
+    <arc id="A7" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T4" target="NS_TL_RedYellow" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="345" yCoord="345"/>
+      <arcpath arcPointType="false" id="1" xCoord="345" yCoord="375"/>
+    </arc>
+    <arc id="A8" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="EW_TL_Red" target="T5" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="525" yCoord="270"/>
+      <arcpath arcPointType="false" id="1" xCoord="525" yCoord="300"/>
+    </arc>
+    <arc id="A9" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T5" target="EW_TL_RedYellow" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="525" yCoord="330"/>
+      <arcpath arcPointType="false" id="1" xCoord="525" yCoord="375"/>
+    </arc>
+    <arc id="A10" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="EW_TL_RedYellow" target="T7" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="540" yCoord="390"/>
+      <arcpath arcPointType="false" id="1" xCoord="639" yCoord="390"/>
+    </arc>
+    <arc id="A11" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T7" target="EW_TL_Green" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="649" yCoord="390"/>
+      <arcpath arcPointType="false" id="1" xCoord="750" yCoord="390"/>
+    </arc>
+    <arc id="A12" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="EW_TL_Green" target="T8" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="765" yCoord="375"/>
+      <arcpath arcPointType="false" id="1" xCoord="765" yCoord="330"/>
+    </arc>
+    <arc id="A13" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T8" target="EW_TL_Yellow" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="765" yCoord="300"/>
+      <arcpath arcPointType="false" id="1" xCoord="765" yCoord="270"/>
+    </arc>
+    <arc id="A14" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="EW_TL_Yellow" target="T6" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="750" yCoord="255"/>
+      <arcpath arcPointType="false" id="1" xCoord="634" yCoord="255"/>
+    </arc>
+    <arc id="A15" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T6" target="EW_TL_Red" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="624" yCoord="255"/>
+      <arcpath arcPointType="false" id="1" xCoord="540" yCoord="255"/>
+    </arc>
+    <arc id="A16" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Controller" target="T1" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="390" yCoord="119"/>
+      <arcpath arcPointType="false" id="1" xCoord="395" yCoord="454"/>
+      <arcpath arcPointType="false" id="2" xCoord="224" yCoord="454"/>
+      <arcpath arcPointType="false" id="3" xCoord="225" yCoord="405"/>
+    </arc>
+    <arc id="A17" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T2" target="Controller" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="114" yCoord="315"/>
+      <arcpath arcPointType="false" id="1" xCoord="18" yCoord="316"/>
+      <arcpath arcPointType="false" id="2" xCoord="16" yCoord="81"/>
+      <arcpath arcPointType="false" id="3" xCoord="375" yCoord="104"/>
+    </arc>
+    <arc id="A18" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Controller" target="T7" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="390" yCoord="119"/>
+      <arcpath arcPointType="false" id="1" xCoord="398" yCoord="459"/>
+      <arcpath arcPointType="false" id="2" xCoord="642" yCoord="458"/>
+      <arcpath arcPointType="false" id="3" xCoord="645" yCoord="405"/>
+    </arc>
+    <arc id="A19" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T8" target="Controller" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="769" yCoord="315"/>
+      <arcpath arcPointType="false" id="1" xCoord="850" yCoord="317"/>
+      <arcpath arcPointType="false" id="2" xCoord="842" yCoord="100"/>
+      <arcpath arcPointType="false" id="3" xCoord="404" yCoord="104"/>
+    </arc>
+  </net>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Mutual Green Exclusion" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+    <formula>
+            
+      <negation>
+                
+        <exists-path>
+                    
+          <finally>
+                        
+            <conjunction>
+                            
+              <integer-eq>
+                                
+                <tokens-count>
+                                    
+                  <place>TAPN1.EW_TL_Green</place>
+                                  
+                </tokens-count>
+                                
+                <integer-constant>1</integer-constant>
+                              
+              </integer-eq>
+                            
+              <integer-eq>
+                                
+                <tokens-count>
+                                    
+                  <place>TAPN1.NS_TL_Green</place>
+                                  
+                </tokens-count>
+                                
+                <integer-constant>1</integer-constant>
+                              
+              </integer-eq>
+                          
+            </conjunction>
+                      
+          </finally>
+                  
+        </exists-path>
+              
+      </negation>
+          
+    </formula>
+  </query>
+  <k-bound bound="3"/>
+  <feature isGame="false" isTimed="false"/>
+</pnml>
